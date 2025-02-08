@@ -8,10 +8,11 @@ Cartella code: contiene tutto il codice relativo al progetto
 
 Cartella data: contiene file utili per il progetto
 
+Cartella docs: contiene la documentazione relativa al progetto
 ---
 
 ## Requisiti
-Prima di eseguire il codice, assicurati di avere **Python 3.8+** installato sul tuo sistema.
+Prima di eseguire il codice, assicurati di avere **Python 3.8+** installato sul sistema.
 
 ### Installazione delle librerie richieste
 Puoi installare tutte le librerie necessarie eseguendo i seguenti comandi:
