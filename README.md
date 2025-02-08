@@ -1,5 +1,5 @@
 # Ingegneria-della-conoscenza
-# Ingegneria della Conoscenza - Classificazione Funghi con Machine Learning
+# Ingegneria della Conoscenza - Classificazione Intelligente dei funghi
 
 ## Struttura della Repository
 La repository è organizzata in diverse cartelle per una gestione più ordinata dei file:
