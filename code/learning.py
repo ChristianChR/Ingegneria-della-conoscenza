@@ -8,6 +8,7 @@ from sklearn.model_selection import KFold, train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import BernoulliNB
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, auc, precision_score, recall_score, f1_score
 
 os.makedirs("images", exist_ok=True)
@@ -36,11 +37,16 @@ with open("data/best_hyperparameters.txt", "r") as f:
 rf = RandomForestClassifier(**best_params["random_forest"], random_state=42)
 svm = SVC(**best_params["svm"], probability=True)
 dt = DecisionTreeClassifier(**best_params["decision_tree"], random_state=42)
+nb = BernoulliNB()  # Modello Naive Bayes
 
-# Creazione di K-Fold Cross Validation sul training set
 kf = KFold(n_splits=10, shuffle=True, random_state=42)
 
-models = {"Random Forest": rf, "SVM": svm, "Decision Tree": dt}
+models = {
+    "Random Forest": rf,
+    "SVM": svm,
+    "Decision Tree": dt,
+    "Naive Bayes": nb
+}
 
 for name, model in models.items():
     print(f"Training {name} with K-Fold Cross Validation...")
@@ -53,7 +59,6 @@ for name, model in models.items():
 
     print("Addestramento e validazione completati.")
     
-    # Calcolo delle metriche sul test set
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
@@ -111,3 +116,26 @@ for name, model in models.items():
     plt.legend()
     plt.savefig(f"images/{name.replace(' ', '_')}_learning_curve.png")
     plt.close()
+
+
+    test_data = pd.DataFrame([
+        {   # Agaricus bisporus (edibile)
+            "cap-shape_x": True, "cap-surface_s": True, "cap-color_b": True, "bruises_t": False,
+            "odor_f": False, "gill-color_p": True, "stalk-shape_e": True, "ring-type_p": True,
+            "spore-print-color_b": True, "population_s": True, "habitat_g": True
+        },
+        {  # Amanita phalloides (velenoso)
+            "cap-shape_x": True, "cap-surface_s": True, "cap-color_g": True, "bruises_t": False,
+            "odor_p": True, "gill-color_w": True, "stalk-shape_t": True, "ring-type_p": True,
+            "spore-print-color_w": True, "population_s": True, "habitat_f": True
+        }
+    ])
+
+    full_columns = pd.read_csv("data/mushrooms_encoded.csv").columns
+    test_data = test_data.reindex(columns=full_columns, fill_value=False)
+
+    test_data = test_data.astype(bool)
+
+    for name, model in models.items():
+        predictions = model.predict(test_data)
+        print(f"{name} Predictions: {predictions}")
