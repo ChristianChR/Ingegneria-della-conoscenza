@@ -8,7 +8,10 @@ Cartella code: contiene tutto il codice relativo al progetto
 
 Cartella data: contiene file utili per il progetto
 
+Cartella images: contiene immagini dei grafici
+
 Cartella docs: contiene la documentazione relativa al progetto
+
 ---
 
 ## Requisiti
