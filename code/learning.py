@@ -117,25 +117,32 @@ for name, model in models.items():
     plt.savefig(f"images/{name.replace(' ', '_')}_learning_curve.png")
     plt.close()
 
+    with open("data/error_statistics.txt", "a") as file:
+        file.write(f"{name} Train Error Variance: {train_variances:.4e}\n")
+        file.write(f"{name} Test Error Variance: {test_variances:.4e}\n")
+        file.write(f"{name} Train Error Std Dev: {train_std_devs:.4e}\n")
+        file.write(f"{name} Test Error Std Dev: {test_std_devs:.4e}\n")
+        file.write("\n")
 
-    test_data = pd.DataFrame([
-        {   # Agaricus bisporus (edibile)
-            "cap-shape_x": True, "cap-surface_s": True, "cap-color_b": True, "bruises_t": False,
-            "odor_f": False, "gill-color_p": True, "stalk-shape_e": True, "ring-type_p": True,
-            "spore-print-color_b": True, "population_s": True, "habitat_g": True
-        },
-        {  # Amanita phalloides (velenoso)
-            "cap-shape_x": True, "cap-surface_s": True, "cap-color_g": True, "bruises_t": False,
-            "odor_p": True, "gill-color_w": True, "stalk-shape_t": True, "ring-type_p": True,
-            "spore-print-color_w": True, "population_s": True, "habitat_f": True
-        }
-    ])
+test_data = pd.DataFrame([
+    {   # Agaricus bisporus (edibile)
+        "cap-shape_x": True, "cap-surface_s": True, "cap-color_b": True,
+        "odor_f": False, "gill-color_p": True, "stalk-shape_e": True, "ring-type_p": True,
+        "spore-print-color_b": True, "population_s": True, "habitat_g": True
+    },
+    {  # Amanita phalloides (velenoso)
+        "cap-shape_x": True, "cap-surface_s": True, "cap-color_g": True, "bruises_t": False,
+        "odor_p": True, "gill-color_w": True, "stalk-shape_t": True, "ring-type_p": True,
+        "spore-print-color_w": True, "population_s": True, "habitat_f": True
+    }
+])
 
-    full_columns = pd.read_csv("data/mushrooms_encoded.csv").columns
-    test_data = test_data.reindex(columns=full_columns, fill_value=False)
+full_columns = pd.read_csv("data/mushrooms_encoded.csv").columns
+test_data = test_data.reindex(columns=full_columns, fill_value=False)
 
-    test_data = test_data.astype(bool)
+test_data = test_data.astype(bool)
 
-    for name, model in models.items():
-        predictions = model.predict(test_data)
-        print(f"{name} Predictions: {predictions}")
+for name, model in models.items():
+    test_data_aligned = test_data.reindex(columns=X_train.columns, fill_value=False)
+    predictions = model.predict(test_data_aligned)
+    print(f"{name} Predictions: {predictions}")

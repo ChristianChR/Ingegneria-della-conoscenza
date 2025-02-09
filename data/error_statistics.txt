@@ -1,0 +1,20 @@
+Random Forest Train Error Variance: 1.5852e-04
+Random Forest Test Error Variance: 2.4017e-04
+Random Forest Train Error Std Dev: 1.2591e-02
+Random Forest Test Error Std Dev: 1.5498e-02
+
+SVM Train Error Variance: 6.9939e-05
+SVM Test Error Variance: 9.1579e-05
+SVM Train Error Std Dev: 8.3630e-03
+SVM Test Error Std Dev: 9.5697e-03
+
+Decision Tree Train Error Variance: 4.0373e-06
+Decision Tree Test Error Variance: 0.0000e+00
+Decision Tree Train Error Std Dev: 2.0093e-03
+Decision Tree Test Error Std Dev: 0.0000e+00
+
+Naive Bayes Train Error Variance: 2.8395e-06
+Naive Bayes Test Error Variance: 0.0000e+00
+Naive Bayes Train Error Std Dev: 1.6851e-03
+Naive Bayes Test Error Std Dev: 0.0000e+00
+
