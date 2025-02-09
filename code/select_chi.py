@@ -17,4 +17,4 @@ results = pd.DataFrame({'Feature': X.columns, 'Chi2 Score': chi2_scores, 'P-Valu
 results = results.sort_values(by='Chi2 Score', ascending=False)
 selected_features = results.head(20)
 
-selected_features.to_csv('data/selected_chi2_features.txt', index=False, sep='\t')
+selected_features.to_csv('data/chi2_results', index=False, sep='\t')
